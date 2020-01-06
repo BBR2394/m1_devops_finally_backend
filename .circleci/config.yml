@@ -77,7 +77,8 @@ jobs:
             - dependencies-{{ .Environment.CACHE_VERSION }}
             # fallback to using the latest cache if no exact match is found
             - dependencies-
-      - install-requirements:
+      - run:
+          name: install-requirements
           command: pip install -r requirements/dev.txt --user
       - run:
           name: flask init
