@@ -107,18 +107,12 @@ jobs:
           name: a command to test
           command: echo "just to test "
       - run:
-          name: docker container test
-          command: docker container run --name flask_db_test -e $POSTGRES_PASSWORD -e $POSTGRES_USER -p $POSTGRES_PORT:$POSTGRES_PORT -d postgres
-      - run:
           name: export env var
           command: export DATABASE_URL=postgresql://$POSTGRES_USER:$POSTGRES_PASSWORD@localhost:$POSTGRES_PORT/$POSTGRES_USER
           #DATABASE_URL=postgresql://$POSTGRES_USER:$POSTGRES_PASSWORD@localhost:$POSTGRES_PORT/$POSTGRES_USER
       - run:
           name: flask test
           command: flask test
-      - run:
-          name: stop docker flask test
-          command: docker container stop flask_db_test
       - run:
           name: remove env var
           command: unset DATABASE_URL
