@@ -81,9 +81,6 @@ jobs:
           name: install-requirements
           command: pip install -r requirements/dev.txt --user
       - run:
-          name: flask init
-          command: flask db init
-      - run:
           name: flask migrate
           command: flask db migrate
       - run:
