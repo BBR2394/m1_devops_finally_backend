@@ -64,8 +64,8 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - dependencies-
       - run:
-        name: a command
-        command: echo "just to test "
+          name: a command
+          command: echo "just to test "
 
   test:
     docker:
@@ -79,8 +79,8 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - dependencies-
       - run:
-        name: a command
-        command: echo "just to test "
+          name: a command
+          command: echo "just to test "
 
 
 
