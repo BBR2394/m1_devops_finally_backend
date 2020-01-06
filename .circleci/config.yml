@@ -90,9 +90,8 @@ jobs:
           command: flask db upgrade
       - save_cache:
           paths:
-            - ./venv
+            - cache-dir
           key: dependencies-{{ .Environment.CACHE_VERSION }}
-
 
   test:
     docker:
