@@ -119,7 +119,7 @@ jobs:
       - run:
           name: stop docker flask test
           command: docker container stop flask_db_test
-      run:
+      - run:
           name: remove env var
           command: unset DATABASE_URL
 
