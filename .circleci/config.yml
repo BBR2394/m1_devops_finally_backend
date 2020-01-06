@@ -20,7 +20,7 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-            - dependencies-{{ .Environment.CACHE_VERSION }}
+            - v1-dependencies-{{ checksum "requirements.txt" }}
             # fallback to using the latest cache if no exact match is found
             - dependencies-
       - run:
@@ -33,8 +33,8 @@ jobs:
 
       - save_cache:
           paths:
-            - ./venv
-          key: dependencies-{{ .Environment.CACHE_VERSION }}
+            - ./cache-dir
+          key: v1-dependencies-{{ checksum "requirements.txt" }}
 
       # run tests!
       # this example uses Django's built-in test-runner
@@ -74,7 +74,7 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - dependencies-{{ .Environment.CACHE_VERSION }}
+            - v1-dependencies-{{ checksum "requirements.txt" }}
             # fallback to using the latest cache if no exact match is found
             - dependencies-
       - run:
@@ -90,8 +90,8 @@ jobs:
           command: flask db upgrade
       - save_cache:
           paths:
-            - cache-dir
-          key: dependencies-{{ .Environment.CACHE_VERSION }}
+            - ./cache-dir
+          key: v1-dependencies-{{ checksum "requirements.txt" }}
 
   test:
     docker:
