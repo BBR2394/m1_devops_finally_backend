@@ -131,7 +131,7 @@ workflows:
       # - build:
       #     requires:
       #       - install
-      - apply-db-schema
+      - apply-db-schema:
           requires:
             - install
       - test:
