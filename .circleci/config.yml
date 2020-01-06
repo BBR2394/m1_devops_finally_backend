@@ -78,8 +78,10 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - dependencies-
       - run:
-          name: install-requirements
-          command: pip install -r requirements/dev.txt --user
+          name: install-requirements and flask upgrade
+          command: |
+            pip install -r requirements/dev.txt --user
+            flask upgrade
       # - run:
       #     name: flask migrate
       #     command: flask db migrate
