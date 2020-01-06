@@ -80,8 +80,8 @@ jobs:
       - run:
           name: install-requirements and flask upgrade
           command: |
-            pip install -r requirements/prod.txt --user
-            flask upgrade
+            pip install -r requirements/dev.txt --user
+            flask migrate
       # - run:
       #     name: flask migrate
       #     command: flask db migrate
