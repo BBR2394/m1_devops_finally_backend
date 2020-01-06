@@ -52,7 +52,21 @@ jobs:
       #     path: test-reports
       #     destination: test-reports
 
-  build:
+  # build:
+  #   docker:
+  #     - image: circleci/python:3.6.1
+  #   working_directory: ~/repo
+  #   steps:
+  #     - checkout
+  #     - restore_cache:
+  #         keys:
+  #           - dependencies-{{ .Environment.CACHE_VERSION }}
+  #           # fallback to using the latest cache if no exact match is found
+  #           - dependencies-
+  #     - run:
+  #         name: a command
+  #         command: echo "just to test "
+  apply-db-schema:
     docker:
       - image: circleci/python:3.6.1
     working_directory: ~/repo
@@ -64,8 +78,19 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - dependencies-
       - run:
-          name: a command
-          command: echo "just to test "
+          name: flask init
+          command: flask db init
+      - run:
+          name: flask migrate
+          command: flask db migrate
+      - run:
+          name: flask upgrade
+          command: flask db upgrade
+      - save_cache:
+          paths:
+            - ./venv
+          key: dependencies-{{ .Environment.CACHE_VERSION }}
+
 
   test:
     docker:
@@ -79,17 +104,34 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - dependencies-
       - run:
-          name: a command
+          name: a command to test
           command: echo "just to test "
-
-
+      - run:
+          name: docker container test
+          command: docker container run --name flask_db_test -e $POSTGRES_PASSWORD -e $POSTGRES_USER -p $POSTGRES_PORT:$POSTGRES_PORT -d postgres
+      - run:
+          name: export env var
+          command: export DATABASE_URL=postgresql://$POSTGRES_USER:$POSTGRES_PASSWORD@localhost:$POSTGRES_PORT/$POSTGRES_USER
+          #DATABASE_URL=postgresql://$POSTGRES_USER:$POSTGRES_PASSWORD@localhost:$POSTGRES_PORT/$POSTGRES_USER
+      - run:
+          name: flask test
+          command: flask test
+      - run:
+          name: stop docker flask test
+          command: docker container stop flask_db_test
+      run:
+          name: remove env var
+          command: unset DATABASE_URL
 
 workflows:
   version: 2
   build-general:
     jobs:
       - install
-      - build:
+      # - build:
+      #     requires:
+      #       - install
+      - apply-db-schema
           requires:
             - install
       - test:
