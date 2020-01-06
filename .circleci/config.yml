@@ -19,7 +19,7 @@ jobs:
       - checkout
       # Download and cache dependencies
       - restore_cache:
-        keys:
+          keys:
             - dependencies-{{ .Environment.CACHE_VERSION }}
             # fallback to using the latest cache if no exact match is found
             - dependencies-
