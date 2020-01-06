@@ -34,7 +34,7 @@ jobs:
       - save_cache:
           paths:
             - ./venv
-          key: v1-dependencies-{{ checksum "requirements.txt" }}
+          key: dependencies-{{ .Environment.CACHE_VERSION }}
 
       # run tests!
       # this example uses Django's built-in test-runner
@@ -59,7 +59,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-        keys:
+          keys:
             - dependencies-{{ .Environment.CACHE_VERSION }}
             # fallback to using the latest cache if no exact match is found
             - dependencies-
@@ -74,7 +74,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-        keys:
+          keys:
             - dependencies-{{ .Environment.CACHE_VERSION }}
             # fallback to using the latest cache if no exact match is found
             - dependencies-
