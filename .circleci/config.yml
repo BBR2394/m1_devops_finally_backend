@@ -53,10 +53,13 @@ jobs:
 
       - run:
           name: flask test
+          environment:
+            TESTENV: "ceci est juste pour tester la persistence des var d env"
           command: |
             echo $DATABASE_URL
+            echo $TESTENV
             . venv/bin/activate
-            flask test
+            flask --help
       - save_cache:
           paths:
             - ./venv
