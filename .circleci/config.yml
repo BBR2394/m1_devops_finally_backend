@@ -23,9 +23,9 @@ jobs:
             - dependencies-{{ checksum "requirements/dev.txt" }}
             # fallback to using the latest cache if no exact match is found
             - dependencies-
-      - run:
-          name: start postgres
-          command: postgres -D /var/lib/postgresql/data
+      # - run:
+      #     name: start postgres
+      #     command: postgres -D /var/lib/postgresql/data
       - run:
           name: install python and dependencies
           command: |
