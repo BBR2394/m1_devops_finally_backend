@@ -43,7 +43,7 @@ jobs:
             POSTGRES_DB: bdtest
             POSTGRES_PASSWORD: somePwd
             POSTGRES_PORT: 5432
-            DATABASE_URL: postgresql://$POSTGRES_USER:$POSTGRES_PASSWORD@localhost:$POSTGRES_PORT/$POSTGRES_USER
+            DATABASE_URL: postgresql://postgres:somePwd@localhost:5432/postgres
           command: |
             echo $FLASK_APP
             echo $FLASK_DEBUG
