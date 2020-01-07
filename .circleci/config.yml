@@ -123,7 +123,7 @@ jobs:
           environment:
             HEROKU_APP_NAME: afternoon-falls-29266
           command: |
-            HTTPCODE=`curl -s -o /dev/null -w "%{http_code}" https://$HEROKU_APP_NAME.herokuapp.com/`
+            HTTPCODE=`curl -s -o /dev/null -w "%{http_code}" https://$HEROKU_APP_NAME.herokuapp.com/example`
               if [ "$HTTPCODE" -ne 200 ];then
                 echo "heroku app not responding, failing deploy"
                 exit 1
