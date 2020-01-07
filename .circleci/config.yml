@@ -113,7 +113,7 @@ jobs:
       - run:
           name: Heroku Deploy (master)
           environment:
-            HEROKU_APP_NAME: sheltered-harbor-71498
+            HEROKU_APP_NAME: afternoon-falls-29266
             FLASK_DEBUG: 1
           command: |
             echo $HEROKU_APP_NAME
