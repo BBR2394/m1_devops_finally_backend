@@ -32,6 +32,8 @@ jobs:
       - run:
           name: flask initialisation
           command: |
+            export FLASK_APP=/home/circleci/repo
+            export FLASK_DEBUG=1
             . venv/bin/activate
             flask db init
       - save_cache:
