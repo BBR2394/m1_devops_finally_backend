@@ -25,15 +25,14 @@ jobs:
             - dependencies-
       - run:
           name: install python and dependencies
-          command: 
-            # I dont know if i have to use these two line
-            # python3 -m venv venv
-            # . venv/bin/activate
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
             pip install -r requirements/dev.txt
 
       - save_cache:
           paths:
-            - ./cache-dir
+            - ./venv
           key: v1-dependencies-{{ checksum "requirements.txt" }}
 
       # run tests!
@@ -82,7 +81,10 @@ jobs:
       #     command: pip install --upgrade pip
       - run:
           name: install-requirements
-          command: pip install -r requirements/dev.txt 
+          command: |
+          python3 -m venv venv
+          . venv/bin/activate
+          pip install -r requirements/dev.txt 
       - run:
           name: flask help !
           command: flask --help
@@ -94,7 +96,7 @@ jobs:
           command: flask db upgrade
       - save_cache:
           paths:
-            - ./cache-dir
+            - ./venv
           key: v1-dependencies-{{ checksum "requirements.txt" }}
 
   test:
