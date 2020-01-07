@@ -29,14 +29,13 @@ jobs:
             python3 -m venv venv
             . venv/bin/activate
             pip install -r requirements/dev.txt
-      - run:
-          name: flask export env var
-          command: |
-            export FLASK_APP=/home/circleci/repo/autoapp.py
-            export FLASK_DEBUG=1
-      # we dont need to init becaus it is already init
+      
+      # we dont need to init because it is already init
       - run:
           name: flask Migrate
+          environment:
+            FLASK_APP: /home/circleci/repo/autoapp.py
+            FLASK_DEBUG: 1
           command: |
             export FLASK_APP=/home/circleci/repo/autoapp.py
             . venv/bin/activate
@@ -149,9 +148,9 @@ workflows:
       # - build:
       #     requires:
       #       - install
-      - apply-db-schema
-          # requires:
-          #   - install
-      - test
-          # requires:
-          #   - install
+      - apply-db-schema:
+          requires:
+            - install
+      - test:
+          requires:
+            - install
