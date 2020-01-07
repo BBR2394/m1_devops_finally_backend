@@ -113,10 +113,11 @@ jobs:
       - run:
           name: Heroku Deploy (master)
           environment:
-            HEROKU_APP_NAME: limitless-sierra-52526
+            HEROKU_APP_NAME: sheltered-harbor-71498
             FLASK_DEBUG: 1
           command: |
-            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/limitless-sierra-52526.git master
+            echo $HEROKU_APP_NAME
+            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
 
 
   apply-db-schema:
