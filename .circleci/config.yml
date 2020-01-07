@@ -38,6 +38,7 @@ jobs:
       - run:
           name: flask Migrate
           command: |
+            export FLASK_APP=/home/circleci/repo/autoapp.py
             . venv/bin/activate
             flask db migrate
       - save_cache:
