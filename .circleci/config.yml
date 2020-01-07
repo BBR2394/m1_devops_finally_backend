@@ -53,7 +53,10 @@ jobs:
 
       - run:
           name: flask test
-          command: flask test
+          command: |
+            echo $DATABASE_URL
+            . venv/bin/activate
+            flask test
       - save_cache:
           paths:
             - ./venv
