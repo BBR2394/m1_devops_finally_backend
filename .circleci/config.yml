@@ -13,7 +13,7 @@ jobs:
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
-      - image: circleci/postgres:9.4
+      - image: circleci/postgres:9.6.2
     working_directory: ~/repo
     steps:
       - checkout
@@ -39,9 +39,11 @@ jobs:
           environment:
             FLASK_APP: /home/circleci/repo/autoapp.py
             FLASK_DEBUG: 1
+            DATABASE_URL: postgresql://$POSTGRES_USER:$POSTGRES_PASSWORD@localhost:$POSTGRES_PORT/$POSTGRES_USER
           command: |
             echo $FLASK_APP
             echo $FLASK_DEBUG
+            echo $DATABASE_URL
             . venv/bin/activate
             flask db upgrade
       - save_cache:
