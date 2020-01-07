@@ -31,7 +31,9 @@ jobs:
             pip install -r requirements/dev.txt
       - run:
           name: flask initialisation
-          command: flask db init
+          command: |
+            . venv/bin/activate
+            flask db init
       - save_cache:
           paths:
             - ./venv
