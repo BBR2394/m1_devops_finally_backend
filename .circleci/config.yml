@@ -30,8 +30,8 @@ jobs:
             . venv/bin/activate
             pip install -r requirements/dev.txt
       - run:
-          name: flask upgrade
-          command: flask db upgrade
+          name: flask initialisation
+          command: flask db init
       - save_cache:
           paths:
             - ./venv
