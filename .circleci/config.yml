@@ -77,12 +77,12 @@ jobs:
             - v1-dependencies-{{ checksum "requirements.txt" }}
             # fallback to using the latest cache if no exact match is found
             - dependencies-
-      - run:
-          name: up run
-          command: pip install --upgrade pip
+      # - run:
+      #     name: up run
+      #     command: pip install --upgrade pip
       - run:
           name: install-requirements
-          command: pip install -r requirements/dev.txt --user
+          command: pip install -r requirements/dev.txt 
       - run:
           name: flask help !
           command: flask --help
@@ -113,7 +113,7 @@ jobs:
           command: echo "just to test "
       - run:
           name: install-requirements 
-          command: pip install -r requirements/dev.txt --user
+          command: pip install -r requirements/dev.txt
       - run:
           name: export env var
           command: export DATABASE_URL=postgresql://$POSTGRES_USER:$POSTGRES_PASSWORD@localhost:$POSTGRES_PORT/$POSTGRES_USER
