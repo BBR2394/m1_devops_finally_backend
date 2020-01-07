@@ -50,6 +50,7 @@ jobs:
             echo $DATABASE_URL
             . venv/bin/activate
             flask db upgrade
+            flask test
 
       - run:
           name: flask test
