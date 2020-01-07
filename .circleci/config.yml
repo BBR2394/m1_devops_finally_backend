@@ -29,7 +29,7 @@ jobs:
             # I dont know if i have to use these two line
             # python3 -m venv venv
             # . venv/bin/activate
-            pip install -r requirements/dev.txt --user
+            pip install -r requirements/dev.txt
 
       - save_cache:
           paths:
@@ -133,9 +133,9 @@ workflows:
       # - build:
       #     requires:
       #       - install
-      - apply-db-schema
-          # requires:
-          #   - install
+      - apply-db-schema:
+          requires:
+            - install
       - test:
           requires:
             - install
