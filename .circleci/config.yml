@@ -78,9 +78,11 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - dependencies-
       - run:
+          name: up run
+          command: pip install --upgrade pip' command
+      - run:
           name: install-requirements
-          command:
-            pip install -r requirements/dev.txt --user
+          command: pip install -r requirements/dev.txt --user
       - run:
           name: flask help !
           command: flask --help
@@ -132,8 +134,8 @@ workflows:
       #     requires:
       #       - install
       - apply-db-schema:
-          requires:
-            - install
+          # requires:
+          #   - install
       - test:
           requires:
             - install
