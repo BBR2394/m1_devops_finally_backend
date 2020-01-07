@@ -20,7 +20,7 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "requirements/dev.txt" }}
+            - dependencies-{{ checksum "requirements/dev.txt" }}
             # fallback to using the latest cache if no exact match is found
             - dependencies-
       - run:
@@ -35,7 +35,7 @@ jobs:
       - save_cache:
           paths:
             - ./venv
-          key: v1-dependencies-{{ checksum "requirements/dev.txt" }}
+          key: dependencies-{{ checksum "requirements/dev.txt" }}
 
       # run tests!
       # this example uses Django's built-in test-runner
@@ -75,7 +75,7 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "requirements.txt" }}
+            - dependencies-{{ checksum "requirements/dev.txt" }}
             # fallback to using the latest cache if no exact match is found
             - dependencies-
       # - run:
@@ -99,7 +99,7 @@ jobs:
       - save_cache:
           paths:
             - ./venv
-          key: v1-dependencies-{{ checksum "requirements.txt" }}
+          key: v1-dependencies-{{ checksum "requirements/dev.txt" }}
 
   test:
     docker:
@@ -109,15 +109,18 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - dependencies-{{ .Environment.CACHE_VERSION }}
+            - dependencies-{{ checksum "requirements/dev.txt" }}
             # fallback to using the latest cache if no exact match is found
             - dependencies-
       - run:
           name: a command to test
           command: echo "just to test "
       - run:
-          name: install-requirements 
-          command: pip install -r requirements/dev.txt
+          name: install requirements
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install -r requirements/dev.txt
       - run:
           name: export env var
           command: export DATABASE_URL=postgresql://$POSTGRES_USER:$POSTGRES_PASSWORD@localhost:$POSTGRES_PORT/$POSTGRES_USER
@@ -140,6 +143,6 @@ workflows:
       - apply-db-schema
           # requires:
           #   - install
-      - test:
-          requires:
-            - install
+      - test
+          # requires:
+          #   - install
