@@ -37,6 +37,8 @@ jobs:
             FLASK_APP: /home/circleci/repo/autoapp.py
             FLASK_DEBUG: 1
           command: |
+            echo $FLASK_APP
+            echo $FLASK_DEBUG
             . venv/bin/activate
             flask db migrate
       - save_cache:
