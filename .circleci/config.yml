@@ -104,7 +104,7 @@ jobs:
   #         command: echo "just to test "
   back-deploy-heroku:
     docker:
-      - image: back-deploy-heroku
+      - image: buildpack-deps:trusty
     steps:
       - checkout
       - run:
