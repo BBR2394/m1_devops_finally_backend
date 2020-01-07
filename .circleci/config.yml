@@ -102,6 +102,20 @@ jobs:
   #     - run:
   #         name: a command
   #         command: echo "just to test "
+  back-deploy-heroku:
+    docker:
+      - image: back-deploy-heroku
+    steps:
+      - checkout
+      - run:
+          name: Heroku Deploy (master)
+          environment:
+            HEROKU_APP_NAME: limitless-sierra-52526
+            FLASK_DEBUG: 1
+          command: |
+            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/limitless-sierra-52526.git master
+
+
   apply-db-schema:
     docker:
       - image: circleci/python:3.6.4
@@ -172,6 +186,9 @@ workflows:
   build-general:
     jobs:
       - install
+      - back-deploy-heroku:
+          requires:
+            - install
       # - build:
       #     requires:
       #       - install
