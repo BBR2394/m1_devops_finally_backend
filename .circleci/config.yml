@@ -79,7 +79,7 @@ jobs:
             - dependencies-
       - run:
           name: up run
-          command: pip install --upgrade pip' command
+          command: pip install --upgrade pip
       - run:
           name: install-requirements
           command: pip install -r requirements/dev.txt --user
