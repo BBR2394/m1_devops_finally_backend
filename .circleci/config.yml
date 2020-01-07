@@ -39,6 +39,10 @@ jobs:
           environment:
             FLASK_APP: /home/circleci/repo/autoapp.py
             FLASK_DEBUG: 1
+            POSTGRES_USER: postgres
+            POSTGRES_DB: bdtest
+            POSTGRES_PASSWORD: somePwd
+            POSTGRES_PORT: 5432
             DATABASE_URL: postgresql://$POSTGRES_USER:$POSTGRES_PASSWORD@localhost:$POSTGRES_PORT/$POSTGRES_USER
           command: |
             echo $FLASK_APP
