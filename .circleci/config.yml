@@ -50,6 +50,10 @@ jobs:
             echo $DATABASE_URL
             . venv/bin/activate
             flask db upgrade
+
+      - run:
+          name: flask test
+          command: flask test
       - save_cache:
           paths:
             - ./venv
