@@ -194,12 +194,23 @@ jobs:
           name: remove env var
           command: unset DATABASE_URL
 
+  docker-build-and-push:
+    working_directory: /dockerapp
+    docker:
+      - image: docker:17.05.0-ce-git
+    steps:
+      - checkout
+
+
 workflows:
   version: 2
   build-general:
     jobs:
       - install
       - back-deploy-heroku:
+          requires:
+            - install
+      - docker-build-and-push:
           requires:
             - install
       # - build:
