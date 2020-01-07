@@ -108,6 +108,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: get api key
+          command: echo $HEROKU_API_KEY
+      - run:
           name: Heroku Deploy (master)
           environment:
             HEROKU_APP_NAME: limitless-sierra-52526
