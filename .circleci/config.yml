@@ -30,10 +30,13 @@ jobs:
             . venv/bin/activate
             pip install -r requirements/dev.txt
       - run:
-          name: flask initialisation
+          name: flask export env var
           command: |
             export FLASK_APP=/home/circleci/repo/autoapp.py
             export FLASK_DEBUG=1
+      - run:
+          name: flask init
+          command: |
             . venv/bin/activate
             flask db init
       - save_cache:
