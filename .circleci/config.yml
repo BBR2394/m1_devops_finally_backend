@@ -34,11 +34,12 @@ jobs:
           command: |
             export FLASK_APP=/home/circleci/repo/autoapp.py
             export FLASK_DEBUG=1
+      # we dont need to init becaus it is already init
       - run:
-          name: flask init
+          name: flask Migrate
           command: |
             . venv/bin/activate
-            flask db init
+            flask db migrate
       - save_cache:
           paths:
             - ./venv
