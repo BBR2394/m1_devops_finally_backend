@@ -50,17 +50,23 @@ jobs:
             echo $DATABASE_URL
             . venv/bin/activate
             flask db upgrade
-            flask test
 
       - run:
           name: flask test
           environment:
+            FLASK_APP: /home/circleci/repo/autoapp.py
+            FLASK_DEBUG: 1
+            POSTGRES_USER: postgres
+            POSTGRES_DB: bdtest
+            POSTGRES_PASSWORD: somePwd
+            POSTGRES_PORT: 5432
+            DATABASE_URL: postgresql://postgres:somePwd@localhost:5432/postgres
             TESTENV: "ceci est juste pour tester la persistence des var d env"
           command: |
             echo $DATABASE_URL
             echo $TESTENV
             . venv/bin/activate
-            flask --help
+            flask test
       - save_cache:
           paths:
             - ./venv
@@ -169,9 +175,9 @@ workflows:
       # - build:
       #     requires:
       #       - install
-      - apply-db-schema:
-          requires:
-            - install
-      - test:
-          requires:
-            - install
+      # - apply-db-schema:
+      #     requires:
+      #       - install
+      # - test:
+      #     requires:
+      #       - install
