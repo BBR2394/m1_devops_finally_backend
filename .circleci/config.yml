@@ -108,9 +108,6 @@ jobs:
     steps:
       - checkout
       - run:
-          name: get api key
-          command: echo $HEROKU_API_KEY
-      - run:
           name: Heroku Deploy (master)
           environment:
             HEROKU_APP_NAME: afternoon-falls-29266
@@ -200,6 +197,9 @@ jobs:
       - image: docker:17.05.0-ce-git
     steps:
       - checkout
+      - run:
+          name: just an echo
+          command: echo "hello docker !"
 
 
 workflows:
