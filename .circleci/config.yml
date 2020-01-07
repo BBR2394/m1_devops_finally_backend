@@ -32,7 +32,7 @@ jobs:
       
       # we dont need to init because it is already init
       - run:
-          name: flask Migrate
+          name: flask upgrade
           environment:
             FLASK_APP: /home/circleci/repo/autoapp.py
             FLASK_DEBUG: 1
@@ -40,7 +40,7 @@ jobs:
             echo $FLASK_APP
             echo $FLASK_DEBUG
             . venv/bin/activate
-            flask db migrate
+            flask db upgrade
       - save_cache:
           paths:
             - ./venv
